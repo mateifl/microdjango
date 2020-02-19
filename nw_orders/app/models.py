@@ -3,9 +3,9 @@ from django.db import models
 
 class Customer(models.Model):
     customerid = models.CharField(db_column='CustomerID', primary_key=True, max_length=5)
-    companyname = models.CharField(db_column='CompanyName', max_length=40)
-    contactname = models.CharField(db_column='ContactName', max_length=30)
-    contacttitle = models.CharField(db_column='ContactTitle', max_length=30)
+    company_name = models.CharField(db_column='CompanyName', max_length=40)
+    contact_name = models.CharField(db_column='ContactName', max_length=30)
+    contact_title = models.CharField(db_column='ContactTitle', max_length=30)
     address = models.CharField(db_column='Address', max_length=60)
     city = models.CharField(db_column='City', max_length=15)
     region = models.CharField(db_column='Region', max_length=15)
@@ -20,10 +20,10 @@ class Customer(models.Model):
 
 class Employee(models.Model):
     employeeid = models.AutoField(db_column='EmployeeID', primary_key=True)
-    lastname = models.CharField(db_column='LastName', max_length=20)
-    firstname = models.CharField(db_column='FirstName', max_length=10)
+    last_name = models.CharField(db_column='LastName', max_length=20)
+    first_name = models.CharField(db_column='FirstName', max_length=10)
     title = models.CharField(db_column='Title', max_length=30)
-    titleofcourtesy = models.CharField(db_column='TitleOfCourtesy', max_length=25)
+    title_of_courtesy = models.CharField(db_column='TitleOfCourtesy', max_length=25)
     birthdate = models.DateTimeField(db_column='BirthDate')
     hiredate = models.DateTimeField(db_column='HireDate')
     address = models.CharField(db_column='Address', max_length=60)
@@ -41,6 +41,15 @@ class Employee(models.Model):
         db_table = 'employees'
 
 
+class Shippers(models.Model):
+    shipperid = models.AutoField(db_column='ShipperID', primary_key=True)  # Field name made lowercase.
+    companyname = models.CharField(db_column='CompanyName', max_length=40)  # Field name made lowercase.
+    phone = models.CharField(db_column='Phone', max_length=24)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'shippers'
+
+
 class Order(models.Model):
     orderid = models.AutoField(db_column='OrderID', primary_key=True)
     customerid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='CustomerID')
@@ -48,7 +57,7 @@ class Order(models.Model):
     orderdate = models.DateTimeField(db_column='OrderDate')
     requireddate = models.DateTimeField(db_column='RequiredDate', blank=True, null=True)
     shippeddate = models.DateTimeField(db_column='ShippedDate', blank=True, null=True)
-    # shipvia = models.ForeignKey('Shippers', models.DO_NOTHING, db_column='ShipVia')
+    shipvia = models.ForeignKey(Shippers, models.DO_NOTHING, db_column='ShipVia')
     freight = models.FloatField(db_column='Freight')
     shipname = models.CharField(db_column='ShipName', max_length=40)
     shipaddress = models.CharField(db_column='ShipAddress', max_length=60)
@@ -59,3 +68,14 @@ class Order(models.Model):
 
     class Meta:
         db_table = 'orders'
+
+
+class OrderDetails(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True) 
+    orderid = models.ForeignKey(Order, models.DO_NOTHING, db_column='OrderID') 
+    unitprice = models.FloatField(db_column='UnitPrice')
+    quantity = models.PositiveSmallIntegerField(db_column='Quantity')
+    discount = models.FloatField(db_column='Discount') 
+
+    class Meta:
+        db_table = 'order_details'

@@ -1,0 +1,1 @@
+# load products information from the products microservice 

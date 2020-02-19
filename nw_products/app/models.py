@@ -7,6 +7,9 @@ class Category(models.Model):
     description = models.TextField(db_column='Description')
     picture = models.CharField(db_column='Picture', max_length=50)
 
+    def __str__(self):
+        return self.category_name
+
     class Meta:
         db_table = 'categories'
 
@@ -32,14 +35,17 @@ class Supplier(models.Model):
 class Product(models.Model):
     productid = models.AutoField(db_column='ProductID', primary_key=True)
     product_name = models.CharField(db_column='ProductName', max_length=40)
-    supplierid = models.ForeignKey(Supplier, models.DO_NOTHING, db_column='SupplierID')
-    categoryid = models.ForeignKey(Category, models.DO_NOTHING, db_column='CategoryID')
+    supplier = models.ForeignKey(Supplier, models.DO_NOTHING, db_column='SupplierID')
+    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='CategoryID')
     quantityperunit = models.CharField(db_column='QuantityPerUnit', max_length=20)
     unit_price = models.FloatField(db_column='UnitPrice')
     unitsinstock = models.PositiveSmallIntegerField(db_column='UnitsInStock')
     unitsonorder = models.PositiveSmallIntegerField(db_column='UnitsOnOrder')
     reorderlevel = models.PositiveSmallIntegerField(db_column='ReorderLevel')
     discontinued = models.CharField(db_column='Discontinued', max_length=1)
+
+    def __str__(self):
+        return self.product_name
 
     class Meta:
         db_table = 'products'

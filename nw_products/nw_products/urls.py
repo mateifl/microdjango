@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from tastypie.api import Api
-from app.views import FrontView
+# from app.views import FrontView
 from app.api import ProductResource, CategoryResource, SupplierResource
 
 v1_api = Api(api_name='v1')
@@ -29,5 +29,5 @@ v1_api.register(SupplierResource())
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/', include(v1_api.urls)),
-    path('', FrontView.as_view(), name="front-page")
+    # path('', FrontView.as_view(), name="front-page")
 ]
