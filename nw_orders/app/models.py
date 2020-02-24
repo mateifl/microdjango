@@ -41,7 +41,7 @@ class Employee(models.Model):
         db_table = 'employees'
 
 
-class Shippers(models.Model):
+class Shipper(models.Model):
     shipperid = models.AutoField(db_column='ShipperID', primary_key=True)
     company_name = models.CharField(db_column='CompanyName', max_length=40)
     phone = models.CharField(db_column='Phone', max_length=24)
@@ -57,7 +57,7 @@ class Order(models.Model):
     order_date = models.DateTimeField(db_column='OrderDate')
     required_date = models.DateTimeField(db_column='RequiredDate', blank=True, null=True)
     shipped_date = models.DateTimeField(db_column='ShippedDate', blank=True, null=True)
-    shipvia = models.ForeignKey(Shippers, models.DO_NOTHING, db_column='ShipVia')
+    ship_via = models.ForeignKey(Shipper, models.DO_NOTHING, db_column='ShipVia')
     freight = models.FloatField(db_column='Freight')
     ship_name = models.CharField(db_column='ShipName', max_length=40)
     ship_address = models.CharField(db_column='ShipAddress', max_length=60)
@@ -75,7 +75,7 @@ class OrderDetail(models.Model):
     order = models.ForeignKey(Order, models.DO_NOTHING, db_column='OrderID')
     unit_price = models.FloatField(db_column='UnitPrice')
     quantity = models.PositiveSmallIntegerField(db_column='Quantity')
-    discount = models.FloatField(db_column='Discount')
+    discount = models.FloatField(db_column='Discount', blank=True, null=True)
     product_id = models.IntegerField(db_column="ProductID")
 
     class Meta:

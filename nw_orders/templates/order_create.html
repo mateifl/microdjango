@@ -3,18 +3,42 @@
 <form method="post">
   {% csrf_token %}
   <div class="form-group">
+    <label for="product-select">Product:</label>
     <select class="form-control" id="products-select" name="product">
       {% for product in products %}
-      <option value="{{product.id}}">{{product.name}} - {{product.unit_price}}</option>
+      <option value="{{product.id}}">{{product.name}} - {{product.unit_price}} $</option>
       {% endfor %}
     </select>
   </div>
   <div class="form-group">
-    <select class="form-control" id="quantity-select" name="quantity">
-      <option value="1">1</option>
-      <option value="1">2</option>
-      <option value="1">3</option>
+
+    <label for="quantity-select">Quantity:</label>
+    <input class="form-control" type="text" name="quantity" />{{form.quantity.errors}}
+  </div>
+  <div class="form-group">
+    <label for="customer-select">Customer:</label>
+    <select class="form-control" id="customer-select" name="customer">
+      {% for customer in customers %}
+      <option value="{{customer.customerid}}">{{customer.company_name}}</option>
+      {% endfor %}
     </select>
+  </div>
+  <div class="form-group">
+    <label for="employee-select">Employee:</label>
+    <select class="form-control" id="employee-select" name="employee">
+      {% for employee in employees %}
+      <option value="{{employee.employeeid}}">{{employee.first_name}} - {{employee.last_name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="shipper-select">Shipper:</label>
+    <select class="form-control" id="shipper-select" name="shipper">
+      {% for shipper in shippers %}
+      <option value="{{shipper.shipperid}}">{{shipper.company_name}}</option>
+      {% endfor %}
+    </select>
+
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
