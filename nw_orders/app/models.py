@@ -14,6 +14,9 @@ class Customer(models.Model):
     phone = models.CharField(db_column='Phone', max_length=24)
     fax = models.CharField(db_column='Fax', max_length=24)
 
+    def __str__(self):
+        return "Customer name = %s id = %s" % (self.company_name, self.customerid)
+
     class Meta:
         db_table = 'customers'
 
@@ -36,6 +39,9 @@ class Employee(models.Model):
     photo = models.CharField(db_column='Photo', max_length=50)
     notes = models.TextField(db_column='Notes', blank=True, null=True)
     reports_to = models.ForeignKey('self', models.DO_NOTHING, db_column='ReportsTo', blank=True, null=True)
+
+    def __str__(self):
+        return "Customer name = %s id = %s" % (self.first_name + " " + self.last_name, self.employeeid)
 
     class Meta:
         db_table = 'employees'
@@ -62,9 +68,12 @@ class Order(models.Model):
     ship_name = models.CharField(db_column='ShipName', max_length=40)
     ship_address = models.CharField(db_column='ShipAddress', max_length=60)
     ship_city = models.CharField(db_column='ShipCity', max_length=15)
-    ship_region = models.CharField(db_column='ShipRegion', max_length=15)
-    ship_postal_code = models.CharField(db_column='ShipPostalCode', max_length=10)
+    ship_region = models.CharField(db_column='ShipRegion', max_length=15, blank=True, null=True)
+    ship_postal_code = models.CharField(db_column='ShipPostalCode', max_length=10, blank=True, null=True)
     ship_country = models.CharField(db_column='ShipCountry', max_length=15)
+
+    def __str__(self):
+        return "Order [id=%d, customer=%s, quantity=%d]" % (self.orderid, self.customer.company_name, self.quantity)
 
     class Meta:
         db_table = 'orders'
@@ -78,5 +87,9 @@ class OrderDetail(models.Model):
     discount = models.FloatField(db_column='Discount', blank=True, null=True)
     product_id = models.IntegerField(db_column="ProductID")
 
+    def __str__(self):
+        return "OrderDetail [product id=%d, order=%d, quantity=%d]" % (self.product_id,
+                                                                        self.order.orderid,
+                                                                        self.quantity)
     class Meta:
         db_table = 'order_details'

@@ -9,3 +9,8 @@ def load_from_api_json(url, parameters, processing_handler):
     json = response.json()
     return_value = processing_handler(json)
     return return_value
+
+
+def update(url, body):
+    """Update a resource using PATCH verb."""
+    response = requests.patch(url)

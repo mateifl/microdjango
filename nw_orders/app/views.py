@@ -5,6 +5,7 @@ from app.products import product_result_handler
 from app.models import Customer, Employee, Shipper, Order, OrderDetail
 from app.forms import CreateOrderForm
 from datetime import datetime
+from app.config import PRODUCTS_SERVICE_URL
 
 
 def check_string_has_value(s):
@@ -26,10 +27,10 @@ class CreateOrderView(FormView):
 
     def get_context_data(self, **kwargs):
         # load the products from the product app using REST call
-        products    = load_from_api_json("http://127.0.0.1:8001/api/v1/product", None, product_result_handler)
-        customers   = Customer.objects.all()
-        employees   = Employee.objects.all()
-        shippers    = Shipper.objects.all()
+        products = load_from_api_json(PRODUCTS_SERVICE_URL, None, product_result_handler)
+        customers = Customer.objects.all()
+        employees = Employee.objects.all()
+        shippers = Shipper.objects.all()
         context = super(CreateOrderView, self).get_context_data(**kwargs)
         if len(products) > 0:
             context['products'] = products

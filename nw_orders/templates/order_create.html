@@ -4,16 +4,15 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="product-select">Product:</label>
-    <select class="form-control" id="products-select" name="product">
+    <select class="form-control" id="product-select" name="product">
       {% for product in products %}
       <option value="{{product.id}}">{{product.name}} - {{product.unit_price}} $</option>
       {% endfor %}
     </select>
   </div>
   <div class="form-group">
-
     <label for="quantity-select">Quantity:</label>
-    <input class="form-control" type="text" name="quantity" />{{form.quantity.errors}}
+    <input class="form-control" type="text" id="quantity-select"  name="quantity" />{{form.quantity.errors}}
   </div>
   <div class="form-group">
     <label for="customer-select">Customer:</label>
