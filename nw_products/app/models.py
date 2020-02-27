@@ -39,8 +39,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, models.DO_NOTHING, db_column='CategoryID')
     quantityperunit = models.CharField(db_column='QuantityPerUnit', max_length=20)
     unit_price = models.FloatField(db_column='UnitPrice')
-    unitsinstock = models.PositiveSmallIntegerField(db_column='UnitsInStock')
-    unitsonorder = models.PositiveSmallIntegerField(db_column='UnitsOnOrder')
+    units_in_stock = models.PositiveSmallIntegerField(db_column='UnitsInStock')
+    units_on_order = models.PositiveSmallIntegerField(db_column='UnitsOnOrder')
     reorderlevel = models.PositiveSmallIntegerField(db_column='ReorderLevel')
     discontinued = models.CharField(db_column='Discontinued', max_length=1)
 

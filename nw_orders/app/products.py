@@ -1,3 +1,6 @@
+from app.logging import LoggerMixin
+
+logger = LoggerMixin()
 
 
 class Product:
@@ -14,7 +17,18 @@ def product_result_handler(products):
     for product_dict in products_list:
         product = Product(product_dict['productid'],
                           product_dict['product_name'],
-                          product_dict['unitsinstock'],
+                          product_dict['units_in_stock'],
                           product_dict['unit_price'])
         result.append(product)
     return result
+
+
+def check_stock(product, params):
+    logger.logger.debug(product)
+    units_in_stock = product['units_in_stock']
+    product_id = product['productid']
+    logger.logger.debug("Check stock product %s stock %s" % (product_id, units_in_stock))
+    if int(units_in_stock) < params['quantity']:
+        return False
+    else:
+        return True

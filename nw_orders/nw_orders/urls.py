@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from app.api import CustomerResource, OrderResource
-from app.views import CreateOrderView
+from app.views import CreateOrderView, DisplayOrderView
 from tastypie.api import Api
 
 
@@ -31,5 +31,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/', include(v1_api.urls)),
     path('create_order/', CreateOrderView.as_view(), name="create_order"),
-    path('display_order/', CreateOrderView.as_view(), name="display_order")
+    path('display_order/<order_id>/', DisplayOrderView.as_view(), name="display_order")
 ]

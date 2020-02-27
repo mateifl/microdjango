@@ -68,6 +68,7 @@ DATABASES = {
         'NAME': 'northwind',
         'USER': 'northwind',
         'PASSWORD': 'northwind',
+        'ATOMIC_REQUESTS': True,
     }
 }
 
@@ -109,3 +110,48 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(filename)s[%(lineno)s] %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'debug_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose'
+        },
+        'sql_log_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'orders_logger': {
+            'handlers': ['console', 'debug_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.db': {
+            'handlers': ['sql_log_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    }
+
+}
