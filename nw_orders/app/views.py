@@ -55,7 +55,6 @@ class CreateOrderView(FormView, LoggerMixin):
         employee_id = check_string_has_value_dict(form.cleaned_data, "employee")
         shipper_id = check_string_has_value_dict(form.cleaned_data, "shipper")
         freight = form.cleaned_data["freight"]
-        ship_name = check_string_has_value_dict(form.cleaned_data, "ship_name")
         ship_country = check_string_has_value_dict(form.cleaned_data, "ship_country")
         ship_city = check_string_has_value_dict(form.cleaned_data, "ship_city")
         address = check_string_has_value_dict(form.cleaned_data, "address")
@@ -83,10 +82,12 @@ class CreateOrderView(FormView, LoggerMixin):
             self.success_url = reverse('display_order', args=[-1])
             return super(CreateOrderView, self).form_valid(form)
         self.logger.info("updating stock")
-        status_code = update(PRODUCTS_SERVICE_URL + "/" + str(product_id) + "/", {"units_in_stock": units_in_stock - quantity})
+        update_stock_body = {"units_in_stock": units_in_stock - quantity}
+        status_code = update(PRODUCTS_SERVICE_URL + "/" + str(product_id) + "/", update_stock_body)
         if status_code >= 400:
             self.logger.error("Stock not updated!")
-            raise Exception("stock not updated")
+            self.success_url = reverse('error_order')
+            return super(CreateOrderView, self).form_valid(form)
         self.logger.debug("saving order")
         order.save()
         order_detail = OrderDetail(product_id=product_id, quantity=quantity, order=order, unit_price=unit_price)

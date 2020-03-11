@@ -12,4 +12,4 @@ class CreateOrderForm(forms.Form):
     ship_country = forms.CharField(label='Country', required=True)
     ship_city = forms.CharField(label='City', required=True)
     address = forms.CharField(label='Address', required=True)
-    freight = forms.IntegerField(label='freight', required=True)
+    freight = forms.IntegerField(label='Freight', required=True)

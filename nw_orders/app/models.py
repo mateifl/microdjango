@@ -89,7 +89,8 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         return "OrderDetail [product id=%d, order=%d, quantity=%d]" % (self.product_id,
-                                                                        self.order.orderid,
-                                                                        self.quantity)
+                                                                       self.order.orderid,
+                                                                       self.quantity)
+
     class Meta:
         db_table = 'order_details'

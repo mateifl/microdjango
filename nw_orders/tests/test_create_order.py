@@ -44,7 +44,7 @@ class OrderCreateTestCase(TestCase, LoggerMixin):
                                      ship_city="Bucharest",
                                      ship_address="Ghencea 1, Bucuresti",
                                      ship_country="Romania"
-                                      )
+                                     )
 
     def test_create_order(self):
         customer = Customer.objects.get(pk='TEST1')
