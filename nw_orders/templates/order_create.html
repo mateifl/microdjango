@@ -8,7 +8,7 @@
     <label for="product-select">Product:</label>
     <select class="form-control" id="product-select" name="product">
       {% for product in products %}
-      <option value="{{product.id}}|{{product.unit_price}}|{{product.units_in_stock}}">{{product.name}} price: {{product.unit_price}} (stock: {{product.units_in_stock}})</option>
+      <option value="{{product.id}}|{{product.unit_price}}">{{product.name}} price: {{product.unit_price}}</option>
       {% endfor %}
     </select>
   </div>
@@ -42,34 +42,13 @@
 
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
+</div>
     <div class="col">
-      <div class="form-group">
-        <label for="ship_name">Name:</label>
-        <input class="form-control" type="text" id="ship_name"  name="ship_name" />
-        {{form.ship_name.errors}}
-      </div>
-      <div class="form-group">
-        <label for="ship_country">Country:</label>
-        <input class="form-control" type="text" id="ship_country"  name="ship_country" />
-        {{form.ship_country.errors}}
-      </div>
-      <div class="form-group">
-        <label for="ship_city">City:</label>
-        <input class="form-control" type="text" id="ship_city"  name="ship_city" />
-        {{form.ship_city.errors}}
-      </div>
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <input class="form-control" type="text" id="address"  name="address" />
-        {{form.address.errors}}
-      </div>
       <div class="form-group">
         <label for="freight">Freight:</label>
         <input class="form-control" type="text" id="freight"  name="freight" />
         {{form.freight.errors}}
       </div>
-
     </div>
   </div>
 </form>

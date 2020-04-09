@@ -4,7 +4,7 @@ from datetime import datetime
 from app.models import Customer, Employee, Shipper, Order, OrderDetail
 from app.config import PRODUCTS_SERVICE_URL
 from app.rest_client import load_from_api_json, update
-from app.products import product_result_handler, check_stock
+from app.products import product_list_result_handler, check_stock
 from app.logging import LoggerMixin
 import json
 
@@ -61,7 +61,7 @@ class OrderCreateTestCase(TestCase, LoggerMixin):
                       ship_country="Romania"
                       )
 
-        products = load_from_api_json(PRODUCTS_SERVICE_URL, None, product_result_handler)
+        products = load_from_api_json(PRODUCTS_SERVICE_URL, None, product_list_result_handler)
         product_id1 = products[0].id
         sufficient_stock = load_from_api_json(PRODUCTS_SERVICE_URL + str(product_id1) + "/", None, check_stock,
                                               {'quantity': 5})
