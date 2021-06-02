@@ -48,7 +48,7 @@ snowballstemmer==2.0.0
 soupsieve==1.9.5
 sqlparse==0.3.0
 traitlets==4.3.3
-urllib3==1.25.8
+urllib3==1.26.5
 vine==1.3.0
 wcwidth==0.1.8
 wrapt==1.11.2
